@@ -32,6 +32,15 @@
         constructor(model2) {
           this.model = model2;
           this.mainContainerEl = document.querySelector("#main-container");
+          this.button = document.querySelector("#btn");
+          this.button.addEventListener("click", () => {
+            const inputValue = document.getElementById("input-note").value;
+            this.addNewNote(inputValue);
+          });
+        }
+        addNewNote(inputValue) {
+          this.model.addNote(inputValue);
+          this.displayNotes();
         }
         displayNotes() {
           const notes = this.model.getNotes();
@@ -52,8 +61,4 @@
   var NotesViews = require_notesViews();
   var model = new NotesModel();
   var view = new NotesViews(model);
-  view.model.addNote("Buy Milk");
-  view.displayNotes();
-  console.log("The notes app is running");
-  console.log(model.getNotes());
 })();
