@@ -13,10 +13,11 @@ class NotesViews {
   addNewNote(inputValue) {
     this.model.addNote(inputValue);
     this.displayNotes();
+    document.getElementById('input-note').value = "";
   }
 
   displayNotes() {
-
+    document.querySelectorAll('.note').forEach(note => note.remove())
     const notes = this.model.getNotes()
     for(let i = 0; i < notes.length; i++) {
       const div = document.createElement('div');
@@ -30,3 +31,4 @@ class NotesViews {
 }
 
 module.exports = NotesViews;
+
