@@ -4,9 +4,14 @@
 // to help in debugging and getting visibility in your JS code.
 //
 // on Mac (using Chrome), use Option+Command+J to open the console and see this message.
+const NotesApi = require('./notesApi');
 const NotesModel = require('./notesModel');
 const NotesViews = require('./notesViews');
 const model = new NotesModel;
-const view = new NotesViews(model);
+const api = new NotesApi();
+const view = new NotesViews(model, api);
 
-
+api.loadNotes((notes) => {
+  model.setNotes(notes);
+  view.displayNotes();
+})
