@@ -6,8 +6,8 @@ class NotesApi {
     .then(notesData => callback(notesData))
   }
   
-  createNote() {
-    const data = { 'content': 'TESTING-2' };
+  createNote(newNote) {
+    const data = { 'content': newNote };
 
 fetch('http://localhost:3000/notes', {
   method: 'POST', // or 'PUT'
@@ -27,6 +27,7 @@ fetch('http://localhost:3000/notes', {
  }
 
  api = new NotesApi()
- api.createNote()
+ api.createNote('test note 2')
+
 module.exports = NotesApi;
 

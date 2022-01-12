@@ -11,8 +11,8 @@
         loadNotes(callback) {
           fetch("http://localhost:3000/notes").then((response) => response.json()).then((notesData) => callback(notesData));
         }
-        createNote() {
-          const data = { "content": "TESTING-2" };
+        createNote(newNote) {
+          const data = { "content": newNote };
           fetch("http://localhost:3000/notes", {
             method: "POST",
             headers: {
@@ -27,7 +27,7 @@
         }
       };
       api = new NotesApi2();
-      api.createNote();
+      api.createNote("test note 2");
       module.exports = NotesApi2;
     }
   });
@@ -59,14 +59,17 @@
   // notesViews.js
   var require_notesViews = __commonJS({
     "notesViews.js"(exports, module) {
+      var NotesApi2 = require_notesApi();
       var NotesViews2 = class {
-        constructor(model2) {
+        constructor(model2, api3) {
+          this.api = api3;
           this.model = model2;
           this.mainContainerEl = document.querySelector("#main-container");
           this.button = document.querySelector("#btn");
           this.button.addEventListener("click", () => {
             const inputValue = document.getElementById("input-note").value;
             this.addNewNote(inputValue);
+            this.api.createNote(inputValue);
           });
         }
         addNewNote(inputValue) {

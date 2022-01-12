@@ -1,12 +1,16 @@
+const NotesApi = require('./notesApi')
+
 class NotesViews {
-  constructor(model) {
+  constructor(model, api) {
+    this.api = api;
     this.model = model;
     this.mainContainerEl = document.querySelector('#main-container');
     this.button = document.querySelector('#btn');
     
     this.button.addEventListener('click', () => {
       const inputValue = document.getElementById('input-note').value;
-      this.addNewNote(inputValue)    
+      this.addNewNote(inputValue)  
+      this.api.createNote(inputValue)  
     });
   }
 
