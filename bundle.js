@@ -11,7 +11,23 @@
         loadNotes(callback) {
           fetch("http://localhost:3000/notes").then((response) => response.json()).then((notesData) => callback(notesData));
         }
+        createNote() {
+          const data = { "content": "TESTING-2" };
+          fetch("http://localhost:3000/notes", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          }).then((response) => response.json()).then((data2) => {
+            console.log("Success:", data2);
+          }).catch((error) => {
+            console.error("Error:", error);
+          });
+        }
       };
+      api = new NotesApi2();
+      api.createNote();
       module.exports = NotesApi2;
     }
   });
@@ -78,10 +94,11 @@
   var NotesModel = require_notesModel();
   var NotesViews = require_notesViews();
   var model = new NotesModel();
-  var api = new NotesApi();
-  var view = new NotesViews(model, api);
-  api.loadNotes((notes) => {
+  var api2 = new NotesApi();
+  var view = new NotesViews(model, api2);
+  api2.loadNotes((notes) => {
     model.setNotes(notes);
     view.displayNotes();
   });
+  api2.createNote();
 })();
